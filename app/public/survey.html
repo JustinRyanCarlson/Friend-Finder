@@ -177,7 +177,7 @@
                     <label>10. You feel more energetic after spending time with a group of people.</label>
                 </div>
                 <div class="center col s12">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <button id="submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
                         <i class="material-icons right">send</i>
                     </button>
                 </div>
@@ -199,6 +199,32 @@
     $(document).ready(function() {
         $('select').material_select();
     });
+
+
+    $("#submit").on("click", function() {
+        if (validateForm() === true) {
+            alert('valid');
+        } else {
+            alert('not valid');
+        }
+
+        return false;
+    });
+
+    // not working
+    function validateForm() {
+        var isValid = true;
+
+        $('.validate').each(function() {
+            if ($(this).val() === '') {
+                console.log($(this).val());
+                isValid = false;
+            }
+            console.log(isValid);
+        });
+
+        return isValid;
+    }
     </script>
 </body>
 
