@@ -202,7 +202,7 @@
 
         $("#submit").on("click", function() {
             if (validateForm() === true) {
-                alert('valid');
+                postData();
             } else {
                 alert('not valid');
             }
@@ -215,7 +215,6 @@
             var isValid = true;
 
             $('input.validate').each(function() {
-                console.log($(this).val());
                 if ($(this).val() === '') {
                     isValid = false;
                 }
@@ -223,7 +222,6 @@
             });
 
             $('.validate .selected').each(function() {
-                console.log($(this).text());
                 if ($(this).text() === '') {
                     isValid = false;
                 }
@@ -232,6 +230,40 @@
 
             return isValid;
         }
+
+        function postData() {
+            var newFriendArr = [];
+
+            $('input.validate').each(function() {
+                newFriendArr.push($(this).val());
+            });
+
+            $('.validate .selected').each(function() {
+                newFriendArr.push($(this).text()[0]);
+            });
+
+
+
+            var newFriendData = {
+                'name': (newFriendArr[0] + ' ' + newFriendArr[1]),
+                'photo': newFriendArr[2],
+                'scores': newFriendArr.splice(3)
+            };
+
+            console.log(newFriendData);
+
+            $.post("/api/friends", newFriendData, function(data) {
+
+                // // Grab the result from the AJAX post so that the best match's name and photo are displayed.
+                // $("#matchName").text(data.name);
+                // $('#matchImg').attr("src", data.photo);
+
+                // // Show the modal with the best match 
+                // $("#resultsModal").modal('toggle');
+
+            });
+        }
+
     });
     </script>
 </body>
