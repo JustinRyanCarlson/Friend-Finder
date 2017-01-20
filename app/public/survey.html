@@ -63,6 +63,14 @@
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
         </div>
     </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h5 class="center">Please enter a value for all fields</h5>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col s12">
@@ -224,7 +232,7 @@
             if (validateForm() === true) {
                 postData();
             } else {
-                alert('not valid');
+                $('#modal2').modal('open');
             }
 
             return false;
@@ -277,18 +285,9 @@
 
 
             $.post("/api/friends", newFriendData, function(data) {
-
-                // // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-                // $("#matchName").text(data.name);
                 $('#match_name').text(data.name);
                 $('#match_img').attr('src', data.photo);
                 $('#modal1').modal('open');
-
-                // $('#matchImg').attr("src", data.photo);
-
-                // // Show the modal with the best match 
-                // $("#resultsModal").modal('toggle');
-
             });
         }
 
