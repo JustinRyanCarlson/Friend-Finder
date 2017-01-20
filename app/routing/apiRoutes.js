@@ -15,7 +15,24 @@ module.exports = function(app) {
 
     app.post('/api/friends', function(req, res) {
         var newFriend = req.body;
-        console.log(newFriend);
+        var scoreRelations = [];
+        var difference = 0;
+
+        for (var i = 0; i < friends.length; i++) {
+            var currentIndexScoreRelations = [];
+            for (var j = 0; j < friends[i].scores.length; j++) {
+                currentIndexScoreRelations.push(Math.abs(newFriend.scores[j] - friends[i].scores[j]));
+            }
+            for (var k = 0; k < currentIndexScoreRelations.length; k++) {
+                difference += currentIndexScoreRelations[k];
+            }
+            scoreRelations.push(difference);
+        }
+
+        var minArrNumber = Math.min(...scoreRelations);
+        var indexOfMin = scoreRelations.indexOf(minArrNumber);
+        console.log(friends[indexOfMin]);
+        res.json(friends[indexOfMin]);
     });
 
 };

@@ -37,6 +37,10 @@
     .grey-text-color {
         color: #2F2F2F;
     }
+    
+    #match_img {
+        max-width: 491px;
+    }
     </style>
 </head>
 
@@ -46,6 +50,19 @@
             <a id="logo-container" href="/" class="brand-logo">Friend Finder<i class="material-icons">polymer</i></a>
         </div>
     </nav>
+    <div id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h5 class="center">Your Match</h5>
+            <hr>
+            <h6 id="match_name" class="center"></h6>
+            <div class="center">
+                <img id="match_img" alt="Friend IMG failed to load">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col s12">
@@ -199,6 +216,9 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $('select').material_select();
+        $('.modal').modal();
+
+
 
         $("#submit").on("click", function() {
             if (validateForm() === true) {
@@ -209,6 +229,9 @@
 
             return false;
         });
+
+
+
 
 
         function validateForm() {
@@ -231,6 +254,9 @@
             return isValid;
         }
 
+
+
+
         function postData() {
             var newFriendArr = [];
 
@@ -243,19 +269,21 @@
             });
 
 
-
             var newFriendData = {
                 'name': (newFriendArr[0] + ' ' + newFriendArr[1]),
                 'photo': newFriendArr[2],
                 'scores': newFriendArr.splice(3)
             };
 
-            console.log(newFriendData);
 
             $.post("/api/friends", newFriendData, function(data) {
 
                 // // Grab the result from the AJAX post so that the best match's name and photo are displayed.
                 // $("#matchName").text(data.name);
+                $('#match_name').text(data.name);
+                $('#match_img').attr('src', data.photo);
+                $('#modal1').modal('open');
+
                 // $('#matchImg').attr("src", data.photo);
 
                 // // Show the modal with the best match 
