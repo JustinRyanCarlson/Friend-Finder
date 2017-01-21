@@ -11,10 +11,14 @@ module.exports = function(app) {
     app.use(bodyParser.text());
     app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+
+
     // Get route that sends the friends array data back as a response.
     app.get('/api/friends', function(req, res) {
         res.end(JSON.stringify(friends));
     });
+
+
 
     // Post route that takes in the servey data from the front end and finds the friend
     // with the most similar answers to the servey then sends that friends data back.
