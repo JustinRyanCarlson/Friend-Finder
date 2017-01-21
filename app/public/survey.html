@@ -222,12 +222,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
+        // Used to animate the dropdowns and modals.
         $('select').material_select();
         $('.modal').modal();
 
 
-
+        // When the submit button is clicked the anonymous funtion is ran.
         $("#submit").on("click", function() {
+
+            // The if conditional runs the validateForm() function and if 
+            // the return from it is true, the postData() function is ran.
             if (validateForm() === true) {
                 postData();
             } else {
@@ -239,8 +243,8 @@
 
 
 
-
-
+        // This function is used to validate that all fields on the survey are filled out.
+        // If they are it will return true and if not the boolean will flip and return false.
         function validateForm() {
             var isValid = true;
 
@@ -263,7 +267,9 @@
 
 
 
-
+        // This function creates an object out of the survey data and posts it to the backend
+        // for processing. When the response comes back, HTML of the matching friend is injected 
+        // into a modal and the modal is displayed.
         function postData() {
             var newFriendArr = [];
 
